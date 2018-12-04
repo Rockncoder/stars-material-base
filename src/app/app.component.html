@@ -1,14 +1,7 @@
-<div>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+<mat-toolbar>
   <h1>{{title}}</h1>
-</div>
-
-<mat-menu #menu="matMenu">
   <a mat-button routerLink="/about">About</a>
   <a mat-button routerLink="/results">GitHub</a>
-</mat-menu>
-
+</mat-toolbar>
 
 <router-outlet></router-outlet>

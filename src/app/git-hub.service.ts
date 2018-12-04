@@ -1,9 +1,12 @@
+
+import {throwError as observableThrowError, Observable} from 'rxjs';
+
+import {catchError, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+
+
+
 
 // https://developer.github.com/v3/search/
 
@@ -26,9 +29,9 @@ export class GitHubService {
       console.log(`language = ${language.language}`);
     }
 
-    return this.http.get(url, this.options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(url, this.options).pipe(
+      map(this.extractData),
+      catchError(this.handleError),);
   }
 
   private extractData(res: Response) {
@@ -50,6 +53,6 @@ export class GitHubService {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
-    return Observable.throw(errMsg);
+    return observableThrowError(errMsg);
   }
 }

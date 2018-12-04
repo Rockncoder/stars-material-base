@@ -1,28 +1,28 @@
 <div>
   <h2>Total Results: {{total | number }}</h2>
   <div>
-    <md-input-container class="">
-      <input mdInput placeholder="Topic" value="topic" [(ngModel)]="topic">
-    </md-input-container>
-    <button md-raised-button (click)="search()">Search</button>
-    <button md-raised-button (click)="clearTopic()"><md-icon>clear</md-icon></button>
+    <mat-form-field class="">
+      <input matInput placeholder="Topic" value="topic" [(ngModel)]="topic">
+    </mat-form-field>
+    <button mat-raised-button (click)="search()">Search</button>
+    <button mat-raised-button (click)="clearTopic()"><mat-icon>clear</mat-icon></button>
   </div>
-  <md-radio-group class="example-radio-group" [(ngModel)]="specificLanguage"  (change)="changeLanguage()">
-    <md-radio-button class="example-radio-button" *ngFor="let language of languages" [value]="language">
+  <mat-radio-group class="example-radio-group" [(ngModel)]="specificLanguage"  (change)="changeLanguage()">
+    <mat-radio-button class="example-radio-button" *ngFor="let language of languages" [value]="language">
       {{language.description}}
-    </md-radio-button>
-  </md-radio-group>
+    </mat-radio-button>
+  </mat-radio-group>
   <div class="button-row">
-    <button md-raised-button (click)="previousPage()" [disabled]="!previousUrl">Previous</button>
-    <button md-raised-button (click)="nextPage()" [disabled]="!nextUrl">Next</button>
+    <button mat-raised-button (click)="previousPage()" [disabled]="!previousUrl">Previous</button>
+    <button mat-raised-button (click)="nextPage()" [disabled]="!nextUrl">Next</button>
   </div>
-  <md-list>
-    <md-list-item *ngFor="let item of items">
-      <img md-list-avatar md-line src="{{item.owner.avatar_url}}"/>
-      <h2 md-line> {{item.full_name}}</h2>
-      <span md-line> <md-icon>star</md-icon>{{item.stargazers_count | convert2k: false}}, {{item.size | convert2k}}, {{item.language}}</span>
-      <p md-line>{{item.description}}</p>
-      <span md-line>{{item.updated_at | amTimeAgo}}</span>
-    </md-list-item>
-  </md-list>
+  <mat-list>
+    <mat-list-item *ngFor="let item of items">
+      <img alt="Repo icon image" mat-list-avatar mat-line src="{{item.owner.avatar_url}}"/>
+      <h2 mat-line> {{item.full_name}}</h2>
+      <span mat-line> <mat-icon>star</mat-icon>{{item.stargazers_count | convert2k: false}}, {{item.size | convert2k}}, {{item.language}}</span>
+      <p mat-line>{{item.description}}</p>
+      <span mat-line>{{item.updated_at | amTimeAgo}}</span>
+    </mat-list-item>
+  </mat-list>
 </div>

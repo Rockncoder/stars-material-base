@@ -21,6 +21,8 @@ export class GsRequestInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class GitHubService {
+  readonly API_URL = 'https://api.github.com';
+
   constructor(private http: HttpClient) {
   }
 

@@ -6,17 +6,17 @@ import {ResultsListComponent} from './results-list/results-list.component';
 import {Convert2KPipe} from './convert2k/convert2k.pipe';
 import {TimeAgoPipe} from 'angular2-moment';
 import {
-  MdButtonModule, MdIconModule, MdMenuModule, MdRadioModule, MdInputModule, MdListModule,
+  MatButtonModule, MatIconModule, MatMenuModule, MatRadioModule, MatInputModule, MatListModule, MatToolbarModule
 } from '@angular/material';
 import {GitHubService} from './git-hub.service';
 
 
 describe('AppComponent', () => {
-  const title = 'GitHub Stars';
+  const title = 'Stars Material';
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, MdButtonModule, MdIconModule, MdMenuModule, MdRadioModule, MdInputModule, MdListModule],
+      imports: [FormsModule, RouterTestingModule, MatButtonModule, MatIconModule, MatMenuModule, MatRadioModule, MatInputModule, MatListModule, MatToolbarModule],
       declarations: [
         AppComponent, ResultsListComponent, Convert2KPipe, TimeAgoPipe
       ],

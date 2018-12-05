@@ -62,6 +62,7 @@ export class ResultsListComponent implements OnInit {
   private callService(url: string, language?: any, topic: string = '') {
     this.gitHub.get(url, language, topic).subscribe(
       data => {
+        console.log(data);
         this.items = data.body.items;
         this.total = data.body.total_count;
         data.links.forEach(link => {

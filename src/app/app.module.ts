@@ -1,12 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AppMaterialModule} from './app-material/app-material.module';
 
 import {AppComponent} from './app.component';
-import {GitHubService} from './git-hub.service';
+import {GitHubService, GsRequestInterceptor} from './git-hub.service';
 import {ResultsListComponent} from './results-list/results-list.component';
 import {MomentModule} from 'angular2-moment';
 import {Convert2KPipe} from './convert2k/convert2k.pipe';
@@ -25,13 +25,20 @@ import 'moment';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MomentModule,
     AppRoutingModule,
     AppMaterialModule,
   ],
-  providers: [GitHubService],
+  providers: [
+    GitHubService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GsRequestInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

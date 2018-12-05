@@ -1,7 +1,7 @@
 import {TestBed, getTestBed, inject} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {GitHubService} from './git-hub.service';
-import { of } from 'rxjs';
+import {of} from 'rxjs';
 
 class FakeGithubService {
   get() {
@@ -9,59 +9,52 @@ class FakeGithubService {
   }
 }
 
-describe('Service: GitHubService', () => {
+describe('Service: GitHubService - ', () => {
   let injector: TestBed;
-  let service: GitHubService;
-  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [
-        { provide: GitHubService, useClass: FakeGithubService }
-      ]
-    }).compileComponents();
-
-    injector = getTestBed();
-    service = injector.get(GitHubService);
-    httpMock = injector.get(HttpTestingController);
-  });
-
-  it('should exist', () => {
-    expect(service).toBeDefined();
-  });
-
-  it('should return mock data', () => {
-
-    service.get().subscribe(repos => {
-      expect(repos.items.length).toBe(1);
-      expect(repos).toEqual(mockRepos);
+      providers: [GitHubService],
     });
 
-    // const req = httpMock.expectOne(`${service.API_URL}`);
-    // expect(req.request.method).toBe('GET');
-    // req.flush(mockRepos);
+    injector = getTestBed();
   });
-});
 
-it('expects service to fetch data with proper sorting',
-  inject([HttpTestingController, GitHubService],
-    (httpMock: HttpTestingController, service: GitHubService) => {
-      // We call the service
-      service.get().subscribe(data => {
-        debugger;
-        expect(data.pageInfo.totalRecordCount).toBe(21);
-        expect(data.pageInfo.pageNumber).toBe(0);
-        expect(data.data.length).toBe(7);
-      });
-      // We set the expectations for the HttpClient mock
-      const req = httpMock.expectOne('http://.../data/contacts');
-      expect(req.request.method).toEqual('GET');
-      // Then we set the fake data to be returned by the mock
-      req.flush(mockRepos);
+  it('should exist', inject([GitHubService],
+    (service: GitHubService) => {
+      expect(service).toBeDefined();
     })
-);
+  );
 
+  it('should return mock data', inject([GitHubService],
+    (service: GitHubService) => {
+      service.get().subscribe(repos => {
+        expect(repos.items.length).toBe(1);
+        expect(repos).toEqual(mockRepos);
+      });
+    }
+  ));
+
+  it('expects service to fetch data',
+    inject([HttpTestingController, GitHubService],
+      (httpMock: HttpTestingController, service: GitHubService) => {
+        service.get().subscribe(repos => {
+          debugger;
+          expect(repos.items.length).toBe(1);
+          expect(repos).toEqual(mockRepos);
+        });
+        const req = httpMock.expectOne('http://.../data/contacts');
+        expect(req.request.method).toEqual('GET');
+        req.flush(mockRepos);
+      })
+  );
+
+// afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
+//   httpMock.verify();
+// }));
+
+});
 
 const mockRepos = {
   'total_count': 2886593,
